@@ -10,7 +10,6 @@ from prefect_gcp.cloud_storage import GcsBucket
 
 import cleaning_utils
 
-
 @flow(name="pwc-upload-to-gcs-flow", log_prints=True)
 def main_flow(
     base_url: str,
@@ -104,12 +103,3 @@ if __name__ == "__main__":
         args.output_dir,
         args.ignore_download_if_exists,
     )
-
-"""
-python etl_web_to_gcs.py \
-    --base_url https://production-media.paperswithcode.com/about/ \
-    -f papers-with-abstracts \
-    -f links-between-papers-and-code \
-    -f datasets \
-    --gcs_block_name pwc-gcs
-"""

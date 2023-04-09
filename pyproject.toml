@@ -1,0 +1,25 @@
+# Black formatting
+[tool.black]
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+      .eggs         # exclude a few common directories in the
+    | .git          # root of the project
+    | .hg
+    | .mypy_cache
+    | .tox
+    | venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+'''
+
+# iSort
+[tool.isort]
+profile = "black"
+length_sort = true
+multi_line_output = 3
+virtual_env = "venv"

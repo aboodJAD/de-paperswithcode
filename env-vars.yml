@@ -1,0 +1,10 @@
+GOOGLE_APPLICATION_CREDENTIALS: ""
+timezone: ""
+
+TF_VAR_project_id: ""
+TF_VAR_region: ""
+
+TF_VAR_datalake_bucket_name: "pwc-de-datalake"
+TF_VAR_bq_dataset_name: "pwc_de_dataset"
+TF_VAR_dataproc_cluster_name: "pwc-dataproc-cluster"
+TF_VAR_dataproc_temp_bucket: ""

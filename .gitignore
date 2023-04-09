@@ -130,6 +130,6 @@ dmypy.json
 
 datalake/data/
 .terraform
+.terraform.lock.hcl
 terraform.tfstate
-terraform_config/.terraform.lock.hcl
-terraform_config/terraform.tfstate.backup
+terraform.tfstate.backup
