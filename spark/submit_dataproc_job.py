@@ -31,7 +31,7 @@ def main_flow(
 @task()
 def upload_gcs(local_path: Path, to_path: Path, gcs_block_name: str) -> None:
     gcs_block = GcsBucket.load(gcs_block_name)
-    gcs_block.upload_from_path(local_path=local_path, to_path=to_path)
+    gcs_block.upload_from_path(from_path=local_path, to_path=to_path)
 
 
 @task(log_prints=True)
