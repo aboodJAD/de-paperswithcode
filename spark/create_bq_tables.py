@@ -1,4 +1,5 @@
 import argparse
+from typing import Optional, List
 
 import pyspark.sql.functions as F
 from pyspark.sql import DataFrame, SparkSession, types
@@ -104,7 +105,7 @@ def setup_spark(args):
 
 
 def filter_by_date(df: DataFrame) -> DataFrame:
-    return df.filter((F.col("date").isNotNull()) & F.col("date") < F.current_date())
+    return df.filter((F.col("date").isNotNull()) & (F.col("date") < F.current_date()))
 
 
 def clean_proceeding_name(proceeding_name: str):
@@ -117,7 +118,7 @@ def clean_proceeding_name(proceeding_name: str):
 
 
 def write_table_to_bq(
-    df: DataFrame, dataset_name: str, table_name: str, partition_by_cols: list[str] = None
+    df: DataFrame, dataset_name: str, table_name: str, partition_by_cols: Optional[List[str]] = None
 ):
     df.write.format("bigquery").option(
         "table",
