@@ -39,7 +39,7 @@ We have two pipelines:
 ## Setup
 
 The project uses python3.9.  
-Create virtual environement and install requirements:
+Create virtual environment and install requirements:
 ```
 python3.9 -m venv venv
 source venv/bin/activate
@@ -51,13 +51,13 @@ Before start:
 - Install Terrafrom
 - Enable the required GCP services and local setup of gcloud  
 - Install Docker and login to your dockerhub
-- Prefect blocks are be created from the UI, these blocks are required:
+- Prefect blocks are created from the UI:
     - Two Docker Container blocks, one for each prefect deployment
     - GCP Credentials block
     - GCS Bucket block
     - GitHub block
 
-To create the infrastructure: export  environment variables in [env-vars.yml](env-vars.yml) with proper values, all variables are required. Then:
+To create the infrastructure: export environment variables in [env-vars.yml](env-vars.yml) with proper values, all variables are required. Then:
 ```
 cd terraform
 terrafrom init
@@ -73,7 +73,7 @@ Prefect agent(default agent) should be up and running. Note: this is not include
 ## Limitations and TODO's
 - Include the creation of VM instance that runs Prefect agent
 - Dataproc cluster need to be running before submitting pyspark job, one improvement is to schedule the starting and stopping of the cluster
-- Merge the two pipelines into one larger pipeline, that after the uploading data into gcs; spark job gets submitted
+- Merge the two pipelines into one larger pipeline, that after uploading data into gcs; spark job gets submitted
 - Control the data version in the datalake and datawarehouse, currently new data overwrites older data
 
 ## Report and Dashboard
