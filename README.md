@@ -39,7 +39,7 @@ We have two pipelines:
 ## Setup
 
 The project uses python3.9.  
-Create virtual environment and install requirements:
+1- Create virtual environment and install requirements:
 ```
 python3.9 -m venv venv
 source venv/bin/activate
@@ -47,25 +47,52 @@ pip install -U pip
 pip install -r requirements.txt
 ```
 
-Before start:
+2- Before start:
 - Install Terrafrom
-- Enable the required GCP services and local setup of gcloud  
+- Enable the required GCP services and local setup of gcloud
 - Install Docker and login to your dockerhub
-- Prefect blocks are created from the UI:
-    - Two Docker Container blocks, one for each prefect deployment
-    - GCP Credentials block
-    - GCS Bucket block
-    - GitHub block
 
-To create the infrastructure: export environment variables in [env-vars.yml](env-vars.yml) with proper values, all variables are required. Then:
+3- Export environment variables in [env-vars.yml](env-vars.yml) with proper values, all variables are required.
+- ```dataproc_temp_bucket``` will be available once the dataproc cluster is created. export it's value after creating the cluster, it's value can be found in the cluster configuration in GCP.
+
+4- Create the infrastructure using Terraform, then ```export dataproc_temp_bucket=VALUE-FROM-CLUSTER-GCP```  
+
+5- Login to Prefect cloud or run Prefect orion server, then create Prefect blocks from the UI, make sure to name the blocks as the names stated in the parameters for Prefect deployments in ```deployment.py```:
+- Two Docker Container blocks, one for each Prefect deployment.
+- GCP Credentials block
+- GCS Bucket block
+- GitHub block
+
+6- Create the Prefect deployments: run ```make all``` this will create and push docker images to dockerhub, and apply the Prefect deployemnts.  
+
+all steps are summarized here:
 ```
+# export the environment variables:
+export GOOGLE_APPLICATION_CREDENTIALS=""
+export timezone=""
+export TF_VAR_project_id=""
+export TF_VAR_region=""
+export TF_VAR_datalake_bucket_name=""
+export TF_VAR_bq_dataset_name=""
+export TF_VAR_dataproc_cluster_name=""
+export datalake_docker_image_name=""
+export spark_docker_image_name=""
+
+# create infrastructure:
 cd terraform
 terrafrom init
 terrafrom plan
 terrafrom apply
-```
 
-To create prefect deployments: run ```make all``` this will create and push docker images to dockerhub, and apply the Prefect deployemnts.  
+cd ..
+export dataproc_temp_bucket="VALUE-FROM-CLUSTER-GCP"
+
+# login to Prefect cloud, then create the blocks:
+prefect cloud login
+
+# push docker images and apply deployments:
+make all
+```
 
 Prefect agent(default agent) should be up and running. Note: this is not included in creating the infrastructure by Terraform. The instance that runs the agent should have enough RAM memory, at least **6GB** RAM.
 
